@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Socket Chat</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/reload/reload.js"></script>
+</head>
+
+<body>
+    <form id="chat" data-chat="chat">
+        <input  class="input-usr" type="text" name="username" placeholder="Digite seu usuário...">
+        <div class="messages"></div>
+        <div class="scan">
+            <input class="input-msg" type="text" name="message" placeholder="Digite sua mensagem...">
+            <button type="submit">Enviar</button>
+        </div>
+    </form>
+    <script>
+        const socket = io('http://localhost:3000')
+
+
+        const renderMessage = ({ user, message }) => {
+            const $messages = document.querySelector('.messages')
+            const div = `
+                <div class="message">
+                    <div class="message-item">
+                        <div class="user">
+                            <strong>${user}</strong>:
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="msg">
+                                ${message}
+                        </div>
+                    </div>
+                </div>
+            `
+            $messages.insertAdjacentHTML('beforeend', div)
+        }
+
+        socket.on('previousMessages', data => {
+            [...data].forEach(message => {
+                renderMessage(message)
+            });
+        })
+
+        socket.on('receveIdMessage', data => {
+            renderMessage(data)
+        })
+
+        const $chat = document.querySelector('[data-chat]')
+        let lengthToScroll = 0
+        $chat.addEventListener('submit', e => {
+            e.preventDefault()
+
+            const $message = document.querySelector('input[name=message]')
+            const $user = document.querySelector('input[name=username]')
+
+            const { value: message } = $message
+            const { value: user } = $user
+
+            if (user.length && message.length) {
+                const messageObject = {
+                    user,
+                    message
+                }
+                renderMessage(messageObject)
+                socket.emit('sendMessage', messageObject)
+            }
+            $message.value = ''
+        }, false)
+    </script>
+</body>
+
+</html>
