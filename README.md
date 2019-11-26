@@ -1,10 +1,10 @@
 # Chat com Socket.io
 
 ## Exercício da disciplina de Sistemas Distribuídos
----
+
 
 ## Requisitos 
----
+
 * [NodeJS][1]
 * [NPM][2]
 * [Git][3]
@@ -12,7 +12,7 @@
 
 
 ## Desenvolvimento
----
+
 * Clonar repositório
 ```bash
 git clone https://github.com/rodrigocode4/socket-chat.git
@@ -24,7 +24,7 @@ git clone https://github.com/rodrigocode4/socket-chat.git
 npm install
 ```
 
-* Scrips da aplicação
+* Scripts da aplicação
 
 |           Descrição              |  Comandos   |
 |              ---                 |    ---      |
