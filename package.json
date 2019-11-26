@@ -20,7 +20,6 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.4",
-    "reload": "^3.0.3"
+    "nodemon": "^1.19.4"
   }
 }

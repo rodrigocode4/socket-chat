@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="styles.css">
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/reload/reload.js"></script>
 </head>
 
 <body>
@@ -23,7 +22,7 @@
         </div>
     </form>
     <script>
-        const socket = io('http://localhost:3000')
+        const socket = io(window.origin)
 
 
         const renderMessage = ({ user, message }) => {

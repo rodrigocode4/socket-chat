@@ -1,7 +1,20 @@
 const express = require('express')
 const path = require('path')
 const ejs = require('ejs')
-const reload = require('reload')
+const os = require('os');
+
+let hostname = os.networkInterfaces().wlp2s0.shift().address
+const PORT = 3000
+
+const address = {
+    value: '',
+    getURL() {
+        return this.value
+    },
+    setURL(url) {
+        this.value = url
+    }
+}
 
 const app = express()
 const server = require('http').createServer(app)
@@ -12,8 +25,8 @@ app.set('views', path.join(__dirname, 'public'))
 app.engine('html', ejs.renderFile)
 app.set('view engine', 'ejs')
 
-app.get('/', (req, res) => {
-    res.render('index.html')
+app.get('/', (req, res, next) => {
+    res.setHeader('url', ).render('index.html')
 })
 
 
@@ -30,8 +43,8 @@ io.on('connection', socket => {
     })
 })
 
-server.listen(PORT = 3000, () => {
-    console.log(`Server running port: ${PORT}`)
+server.listen(PORT, hostname, () => {
+    let url = `http://${hostname}:${PORT}`
+    address.setURL(url)
+    console.log(`Server running port:`, address.getURL())
 })
-
-//reload(app)
